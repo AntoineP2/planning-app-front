@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    scroll-behavior: smooth;
+    height: 100vh;
+}
+
+body {
+    height: 100vh;
+    background: #f4f6fc;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+#__next {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}

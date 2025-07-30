@@ -1,0 +1,7 @@
+common:
+  imagePullSecret: "idealys-registry-secret"
+  msName: "presencestatefront"
+  port: 3000
+internalpresencestatefront:
+  replicas: 1
+  containerImage: "idealysregistry.azurecr.io/internal.presencestatefront:1.0.0"

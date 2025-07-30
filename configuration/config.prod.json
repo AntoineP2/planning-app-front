@@ -1,0 +1,8 @@
+{
+    "NEXT_PUBLIC_API_URL" : "https://iss.idealys.net/api/internal-presence/graphql",
+    "NEXT_PUBLIC_API_KEY" : "secureApi",
+    "NEXT_PUBLIC_SUPER_ADMIN_ID" : "a240df66-33ba-4e1f-8e5b-fffd92315fd9",
+    "NEXT_PUBLIC_ADMIN_ID" : "2d46a6fa-2ae5-41c6-ae0e-3e6db06e9c73",
+    "NEXT_PUBLIC_JWT_PUBLIC_KEY" : "7a1333ec6fd7d01de6048c6159442b4496efa70dc337a6142c6f3f70106205f1155e225ad851f97d4f56995f1751690da686314751b09d24a3cfa5e3025f1257",
+    "NEXT_PUBLIC_API_URL_SSO" : "https://iss.idealys.net/api/internal-presence"
+}

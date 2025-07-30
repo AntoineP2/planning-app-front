@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.common.msName }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.common.msName }}
+  replicas: {{ .Values.internalpresencestatefront.replicas }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.common.msName }}
+    spec:
+      containers:
+        - name: {{ .Values.common.msName }}
+          image: {{ .Values.internalpresencestatefront.containerImage }}
+          ports:
+            - name: http
+              containerPort: 80
+      imagePullSecrets:
+        - name: {{ .Values.common.imagePullSecret }}

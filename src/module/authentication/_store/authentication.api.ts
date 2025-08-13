@@ -19,7 +19,7 @@ const API_KEY: string = process.env.NEXT_PUBLIC_API_KEY;
 const API_URL_SSO: string = process.env.NEXT_PUBLIC_API_URL_SSO;
 
 export const getUserApi = async (email: string, password: string) => {
-    try{
+    try {
         const query = `
         query UserExists($email: String!, $password: String!) {
             userExists(email: $email, password: $password)
@@ -42,8 +42,7 @@ export const getUserApi = async (email: string, password: string) => {
         );
 
         return response.data.data.userExists;
-    }
-    catch (error) {
+    } catch (error) {
         if (error instanceof Error) {
             throw new Error(error.message);
         } else {
@@ -53,33 +52,31 @@ export const getUserApi = async (email: string, password: string) => {
 };
 
 export const loginSSOGoogleApi = async () => {
-    try{
+    try {
         window.location.href = `${API_URL_SSO}/auth/google/login`;
-    }
-    catch (error) {
+    } catch (error) {
         if (error instanceof Error) {
             throw new Error(error.message);
         } else {
             throw new Error('An unknown error occurred');
         }
     }
-}
+};
 
 export const loginSSOMicrosoftApi = async () => {
-    try{
+    try {
         window.location.href = `${API_URL_SSO}/auth/microsoft/login`;
-    }
-    catch (error) {
+    } catch (error) {
         if (error instanceof Error) {
             throw new Error(error.message);
         } else {
             throw new Error('An unknown error occurred');
         }
     }
-}
+};
 
 export const registerUserApi = async (userData: userDataRegisterType) => {
-    try{
+    try {
         const query = `
       mutation CreateUser($firstName: String!, $lastName: String!, $trigramme: String!, $email: String!, $password: String!) {
         createUser(createUserInput: {
@@ -98,32 +95,31 @@ export const registerUserApi = async (userData: userDataRegisterType) => {
           }
       }
     `;
-    const hashedPassword = await encodePassword(userData.password);
+        const hashedPassword = await encodePassword(userData.password);
 
-    const variables = {
-        firstName: userData.firstName,
-        lastName: userData.lastName,
-        trigramme: userData.trigramme.toUpperCase(),
-        email: userData.email.toLowerCase(),
-        password: hashedPassword,
-    };
+        const variables = {
+            firstName: userData.firstName,
+            lastName: userData.lastName,
+            trigramme: userData.trigramme.toUpperCase(),
+            email: userData.email.toLowerCase(),
+            password: hashedPassword,
+        };
 
-    const response = await axios.post(
-        API_URL,
-        {
-            query,
-            variables,
-        },
-        {
-            headers: {
-                'secret-api': API_KEY,
+        const response = await axios.post(
+            API_URL,
+            {
+                query,
+                variables,
             },
-        }
-    );
+            {
+                headers: {
+                    'secret-api': API_KEY,
+                },
+            }
+        );
 
-    return response.data.data.createUser;
-    }
-    catch (error) {
+        return response.data.data.createUser;
+    } catch (error) {
         if (error instanceof Error) {
             throw new Error(error.message);
         } else {

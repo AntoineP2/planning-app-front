@@ -7,6 +7,7 @@ const secret = new TextEncoder().encode(JWT_PUBLIC_KEY);
 export async function decodeToken(token: string) {
     try {
         const { payload } = await jwtVerify(token, secret);
+        console.log(payload);
         return payload;
     } catch (error) {
         return;

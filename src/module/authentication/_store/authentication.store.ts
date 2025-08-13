@@ -1,9 +1,8 @@
-import { getCookie, setCookie } from 'cookies-next';
 import { toast } from 'sonner';
 import { create } from 'zustand';
+import { decodeToken } from '~/lib/utils/decodeToken';
 import { AuthenticationStoreType } from '../authentication.utils';
 import { getUserApi, loginSSOGoogleApi, loginSSOMicrosoftApi, registerUserApi } from './authentication.api';
-import { decodeToken } from '~/lib/utils/decodeToken';
 
 const useAuthenticationStore = create<AuthenticationStoreType>(set => ({
     userFirstName: '',
@@ -17,9 +16,12 @@ const useAuthenticationStore = create<AuthenticationStoreType>(set => ({
 
     getUser: async (email: string, password: string) => {
         try {
-            set({ loading: true});
+            set({ loading: true });
+            console.log('heeeeeere - 1');
             const tokenUser = await getUserApi(email.toLowerCase(), password);
+            console.log('heeeeeere - 2');
             const user = await decodeToken(tokenUser);
+            console.log(user);
             if (!user) {
                 throw new Error('Invalid token');
             }
@@ -31,7 +33,7 @@ const useAuthenticationStore = create<AuthenticationStoreType>(set => ({
                 userMail: user.email as string,
                 userId: user.id as string,
                 userRole: user.role as string[],
-            })
+            });
             toast.success('Vous êtes connecté !');
             return tokenUser;
         } catch (error) {
@@ -42,7 +44,7 @@ const useAuthenticationStore = create<AuthenticationStoreType>(set => ({
         }
     },
 
-    registerUser: async (userData) => {
+    registerUser: async userData => {
         try {
             set({ loadingRegister: true });
             const response = await registerUserApi(userData);
@@ -68,10 +70,9 @@ const useAuthenticationStore = create<AuthenticationStoreType>(set => ({
     },
 
     loginSSOGoogle: async () => {
-        try{
+        try {
             await loginSSOGoogleApi();
-        }
-        catch (error) {
+        } catch (error) {
             if (error instanceof Error) {
                 toast.error(error.message);
             } else {
@@ -81,10 +82,9 @@ const useAuthenticationStore = create<AuthenticationStoreType>(set => ({
     },
 
     loginSSOMicrosoft: async () => {
-        try{
+        try {
             await loginSSOMicrosoftApi();
-        }
-        catch (error) {
+        } catch (error) {
             if (error instanceof Error) {
                 toast.error(error.message);
             } else {
